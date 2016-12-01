@@ -1,0 +1,46 @@
+<!DOCTYPE web-app PUBLIC '-//Sun Microsystems, Inc.//DTD
+  Web Application 2.3//EN' 'http://java.sun.com/dtd/web-app_2_3.dtd'>
+
+<web-app>
+
+  <servlet>
+    <servlet-name>ServletStudent</servlet-name>
+    <servlet-class>students.web.StudServlet</servlet-class>    
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ServletStudent</servlet-name>
+    <url-pattern>/servStud</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>UpdateServlet</servlet-name>
+    <servlet-class>students.web.ServletUpdate</servlet-class>    
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UpdateServlet</servlet-name>
+    <url-pattern>/updateServ</url-pattern>
+  </servlet-mapping>   
+
+  <servlet>
+    <servlet-name>AddServlet</servlet-name>
+    <servlet-class>students.web.ServletAdd</servlet-class>    
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AddServlet</servlet-name>
+    <url-pattern>/addServ</url-pattern>
+  </servlet-mapping> 
+
+  <servlet>
+    <servlet-name>DeleteServlet</servlet-name>
+    <servlet-class>students.web.ServletDelete</servlet-class>    
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DeleteServlet</servlet-name>
+    <url-pattern>/deleteServ</url-pattern>
+  </servlet-mapping>
+
+</web-app>
