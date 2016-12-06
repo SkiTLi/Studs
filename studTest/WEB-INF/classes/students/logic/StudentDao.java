@@ -29,6 +29,7 @@ public class StudentDao{
     //String uq = "UPDATE student SET name = '"+newStud.getName()+"', birthday ='"+ft.format(newStud.getBirthday())+"' WHERE id ="+ newStud.getId(); //изменяем  студента
     private static final String ADD_STR = "insert into student (id, name, birthday) values (?, ?, ?)";
     private static final String UPDATE_STR = "UPDATE student SET name = ?, birthday =? WHERE id = ?";	//!здесь одиночные кавычки не нужны (' '), как в случае с обычной строкой (см. выше)
+    private static final SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
     private static final String DELETE_STR = "DELETE FROM student WHERE id = ?";		    
     private static final String ALL_STUDS_STR = "SELECT id, name, birthday FROM student";	    
     private static final String SUBJS_MARKS_OF_STUDS_STR = "SELECT id, rmark, studentID, subjectID FROM mark WHERE studentID = ?";    
@@ -123,7 +124,7 @@ public class StudentDao{
 	}	
     }
 
-    //это я думал, то ошибка в синхрнизации и поэтому создал этот метод
+    //это я думал, что ошибка в синхрнизации и поэтому создал этот метод
     public static synchronized StudentDao getInstance() throws Exception {
         if (instance == null) {
             instance = new StudentDao();
@@ -133,7 +134,7 @@ public class StudentDao{
 
     //метод добавляющий нового студента в таблицу Student
     public void addStudent(Student newStud) throws DaoException {
-	SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");		
+	//SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");		
 	try {	
 	    getAddPs();      
 	    addPs.setInt(1, newStud.getId());
@@ -147,7 +148,7 @@ public class StudentDao{
 
     //метод изменяющий поля студента в таблице Student
     public void updateStudent(Student newStud) throws DaoException {	    
-	SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");	
+	//SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");	
 	try {
 	    getUpdatePs();	    	        	
 	    updatePs.setString(1, newStud.getName());
@@ -187,7 +188,8 @@ public class StudentDao{
 		newStud.setName(rs.getString("name"));
 		//System.out.println(rs.getString("name"));		
 		newStud.setBirthday(rs.getDate("birthday"));		
-		listStud.add(newStud);			        
+		listStud.add(newStud);
+		//updateStudent(newStud);//по идее каждый студент теперь должен обновляться в бд			        
 	    }	   
 	    return listStud;	       	  			   
 	} catch (Exception e) {
