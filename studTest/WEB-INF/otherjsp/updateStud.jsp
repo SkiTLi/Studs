@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=Windows-1251"
+<%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="Windows-1251"%>
 <! Windows-1251 DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=Windows-1251">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>редактор студента</title>
 </head>
  
@@ -21,6 +21,7 @@
     <table border = "6">
       
     <input type="hidden" name="act3" value="update"/>
+    <input type="hidden" name="mot" value="action"/>
 
     <tr>
 	<!-- type number только для html5 не поддерживает firefox -->
