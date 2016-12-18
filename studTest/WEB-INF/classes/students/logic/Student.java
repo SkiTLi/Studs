@@ -3,8 +3,6 @@
 package students.logic;
 import students.logic.*;
 import java.util.Date;
-//import java.io.*;//скорее всего не нужен
-//import java.util.Enumeration;//скорее всего не нужен
 import java.text.SimpleDateFormat;
 
 public class Student  {
@@ -36,24 +34,12 @@ public class Student  {
         this.birthday = birthday;	
     }
 
-    /*
-    public class BlackBox {
-	int varA;
-	int varB;
-
-	BlackBox(int varA, int varB){
-		this.varA = varA;
-		this.varB = varB;
-	}
-	*/
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;//не знаю почему именно 31
 		int result = 1;
 		result = prime * result + getId();
 		result = prime * result + getName().length()+getName().hashCode();
-        //System.out.println ("length of the *name*: "+getName().length());
         //System.out.println ("hashCode() of the *name*: "+getName().hashCode());
 		return result;
 	}
@@ -63,13 +49,6 @@ public class Student  {
 		if (this == obj){ //исходный метод
 			return true;
 		}
-		/*
-        if (hashCode() == obj.hashCode() && getBirthdayToString() == obj.getBirthdayToString()){// я решил что getBirthday() == obj.getBirthday() не совсем правильно использовать
-            return true;
-        }else{
-            return false;
-        }
-        */
 		if (obj == null) {
             return false;
         }
