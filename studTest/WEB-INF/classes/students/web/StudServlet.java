@@ -22,13 +22,14 @@ import javax.servlet.http.HttpServletResponse;
 
 public class StudServlet extends javax.servlet.http.HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String motion = request.getParameter("mot");    //параметр определяющий действие
-		if (motion == null) {
+		String motion  = request.getParameter("mot");    //параметр определяющий действие
+	/*	if (motion == null) {
 			// именно в таком порядке mAct() затем printListStud() затем printParam()
 			mAct(request, response);// обновляет, удаляет, добавляет студента
 			printListStud(request, response);// печатет студентов и кнопки редактирования/удаления
 			//printParam(request, response);	//печатает все параметры
 		} else {
+	*/
 			switch (motion) {
 				case "update":
 					request.getRequestDispatcher("/WEB-INF/otherjsp/updateStud.jsp").forward(request, response);//переходит на другую jsp
@@ -39,15 +40,28 @@ public class StudServlet extends javax.servlet.http.HttpServlet {
 				case "add":
 					request.getRequestDispatcher("/WEB-INF/otherjsp/addStud.jsp").forward(request, response);//переходит на другую jsp
 					break;
+				// именно в таком порядке mAct() затем printListStud() затем printParam(), поэтому без break
+				case "action":
+					mAct(request, response);// обновляет, удаляет, добавляет студента
+				case "print":
+					printListStud(request, response);// печатет студентов и кнопки редактирования/удаления
+					break;
+
+
 			}
-		}
+	//	}
 	}
 
     private void printListStud(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException {
         resp.setContentType("text/html;charset=utf-8"); //utf-8//Windows-1251//???? "text/html;charset=Windows-1251"
 		PrintWriter pw = resp.getWriter();
-        pw.println("<B>если убрать *;charset=Windows-1251||utf-8*, то русского текста не видно</B>");
-        pw.println("<table border=3>");	
+		//req.setCharacterEncoding("utf-8");
+		pw.println( "Кодировка1 (Encoding): " + resp.getCharacterEncoding() );// Отладочный вывод названия кодировки для проверки
+		//req.setCharacterEncoding("Windows-1251");
+		pw.println("<html>");
+		pw.println("<head>");
+		pw.println("<meta charset=\"utf-8\" />");
+        pw.println("<table border=3>");
 		try {
 			List<Student> l = StudentDao.getInstance().getAllStudents();
 			for (Student s:l){
@@ -72,10 +86,14 @@ public class StudServlet extends javax.servlet.http.HttpServlet {
 			pw.println("<form action = \"servStud\" method=\"GET\"><td colspan = \"19\">"
 				+ "<input type=\"hidden\" name=\"mot\" value=\"add\" />"				//??????????? ??????????? ????????, ??????? ?????????? ???????? ? ???? ?? ????????
 				+ "<input type = \"submit\" value = \"Нов. студ (Add a new student)\"/>	</td></form>");
+			pw.println( "Кодировка2 (Encoding): " + resp.getCharacterEncoding() );
 		} catch (Exception e) {
 			throw new ServletException("Eгг0R. you make some mistake!",e);
 		}
-			pw.println("</table>");
+		pw.println("</table>");
+		pw.println("</head>");
+		pw.println("</html>");
+		pw.close();
 	}
 
     private void mAct(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException {
@@ -140,6 +158,6 @@ public class StudServlet extends javax.servlet.http.HttpServlet {
 	    	out.close();
 		} catch (Exception e) {
             throw new ServletException(e);
-        }                
+        }
     }
 }
